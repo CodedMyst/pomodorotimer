@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #timer {
+            font-size: 48px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pomodoro Timer</h1>
+    <div id="timer">25:00</div>
+    <button id="startBtn">Start</button>
+
+    <script>
+        let timer;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        const timerDisplay = document.getElementById('timer');
+
+        document.getElementById('startBtn').onclick = function() {
+            startTimer();
+        };
+
+        function startTimer() {
+            timer = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert('Time is up! Take a break.');
+                    timeLeft = 25 * 60; // reset timer
+                    updateDisplay();
+                } else {
+                    timeLeft--;
+                    updateDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>
+<div>
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button id="sendChat">Send</button>
+</div>
+<div id="chatLog"></div>
+
+<script>
+    document.getElementById('sendChat').onclick = function() {
+        const input = document.getElementById('chatInput').value;
+        const chatLog = document.getElementById('chatLog');
+        chatLog.innerHTML += `<div>User: ${input}</div>`;
+        chatLog.innerHTML += `<div>Bot: Thanks for your message!</div>`; // Simple bot response
+        document.getElementById('chatInput').value = ''; // Clear input
+    };
+</script>
